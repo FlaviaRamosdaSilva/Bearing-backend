@@ -8,7 +8,7 @@ import cors from 'cors';
 const port = 3002;
 const app = express();
 app.use(json());
-app.use(cors());
+app.use(cors("https://rolamentos-flavia-ramos.netlify.app/"));
 
 app.listen(port, () => {
     console.log (`🚀 Server Started on port ${port}`)
@@ -38,8 +38,8 @@ app.get('/bearings', (request, response) => {
 })
 
 app.post('/bearings', (request, response) => {
-    const { name, number} = request.body // pega o que eu coloquei no Body
-    const bearing = { id:v4(), name, number } // cria um ID para os dados do body e armazena os 3 no USER
+    const { name, number, price} = request.body // pega o que eu coloquei no Body
+    const bearing = { id:v4(), name, number, price } // cria um ID para os dados do body e armazena os 3 no USER
     bearings.push(bearing) // pega a variável USERS que tava com o array vazio e adiciona (push) o que eu criei na linha de cima
 
     return response.status(201).json(bearing) // retorna o usuário que criamos apenas e coloca o status lá de cima com 201
@@ -50,9 +50,9 @@ app.post('/bearings', (request, response) => {
 
 app.put('/bearings/:id', checkBearingId, (request, response) => {
     const id = request.bearingId
-    const { name, number} = request.body // pegar as informações novas no Insomnia no Body de JSON do PUT
+    const { name, number, price} = request.body // pegar as informações novas no Insomnia no Body de JSON do PUT
 
-    const updateBearing = { id, name, number } //estou reformulando os dados do meu usuário, criando o usuário atualizado;
+    const updateBearing = { id, name, number, price } //estou reformulando os dados do meu usuário, criando o usuário atualizado;
     // o ID que já existe, vamos pegar da verificação anterior (UserId), o novo name e novo age que vieram do body pela const name, age.
     const index = request.BearingIndex // ele puxa do IF do checkUserId
     bearings[index] = updateBearing //aqui ele vai procurar o array USERS e vai dizer que o index tal (posição)
